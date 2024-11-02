@@ -25,6 +25,16 @@
 
 		static void PlayRound()
 		{
+			List<int> playerHand = new List<int> { DrawCard(), DrawCard() };
+			List<int> dealerHand = new List<int> { DrawCard(), DrawCard() };
+
+			Console.WriteLine("\nYOUR HAND: {0} (TOTAL: {1}", string.Join(", ", playerHand), CalculateHand(playerHand));
+			Console.WriteLine("DEALER'S HAND: {0}, ?", dealerHand[0]);
+
+			if (PlayerTurn(playerHand) && DealerTurn(dealerHand))
+			{
+				WinnerRound(playerHand, dealerHand);
+			}
 
 		}
 
