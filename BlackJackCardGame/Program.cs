@@ -44,7 +44,7 @@
 
 					if (playerTotal > 21)
 					{
-						Console.WriteLine("BUST! YOU WENT PAST 21");
+						Console.WriteLine("YOU BUST!");
 						dealerScore++;
 						return false;
 					}
@@ -64,6 +64,25 @@
 			return true;
 		}
 
+		static bool DealerTurn(List<int> dealerHand)
+		{
+			while (CalculateHand(dealerHand) < 17)
+			{
+				dealerHand.Add(DrawCard());
+			}
+
+			int dealerTotal = CalculateHand(dealerHand);
+			Console.WriteLine("DEALER'S HAND: {0} (TOTAL: {1})", string.Join(", ", dealerHand), dealerTotal);
+
+			if (dealerTotal > 21)
+			{
+				Console.WriteLine("DEALER BUSTS!");
+				playerScore++;
+				return false;
+			}
+
+			return true;
+		}
 
 
 		static int CalculateHand(List<int> hand)
