@@ -6,9 +6,19 @@
 		private static int playerScore = 0;
 		private static int dealerScore = 0;
 
+		static void ClearConsoleWithHeader()
+		{
+			Console.Clear();
+			Console.WriteLine("BLACKJACK CARD GAME [ 21 ]");
+			Console.WriteLine("\n-----------------------------");
+			Console.WriteLine("\nCURRENT SCORES: PLAYER: {0}, DEALER: {1}", playerScore, dealerScore);
+		}
+
 		static void Main(string[] args)
 		{
-			Console.WriteLine("WELCOME TO BLACKJACK");
+			Console.Title = "BLACKJACK CARD GAME";
+
+			ClearConsoleWithHeader();
 
 			bool playAgain = true;
 
@@ -16,20 +26,24 @@
 			{
 				PlayRound();
 				Console.WriteLine("\nCURRENT SCORES: PLAYER: {0}, DEALER: {1}",playerScore, dealerScore);
-				Console.WriteLine("WOULD YOU LIKE TO PLAY AGAIN? (Y/N)");
+				Console.Write("\nWOULD YOU LIKE TO PLAY AGAIN? (Y/N) ");
 				playAgain = Console.ReadLine().ToUpper() == "Y";
 			}
 
-			Console.WriteLine("THANKS FOR PLAYING! FINAL SCORES: PLAYER: {0}, DEALER: {1}", playerScore, dealerScore);
+			Console.WriteLine("\nTHANKS FOR PLAYING! FINAL SCORES: PLAYER: {0}, DEALER: {1}", playerScore, dealerScore);
 		}
 
 		static void PlayRound()
 		{
+			ClearConsoleWithHeader();
+
 			List<int> playerHand = new List<int> { DrawCard(), DrawCard() };
 			List<int> dealerHand = new List<int> { DrawCard(), DrawCard() };
 
-			Console.WriteLine("\nYOUR HAND: {0} (TOTAL: {1}", string.Join(", ", playerHand), CalculateHand(playerHand));
-			Console.WriteLine("DEALER'S HAND: {0}, ?", dealerHand[0]);
+			Console.WriteLine("\n-----------------------------");
+			Console.WriteLine("\nPLAYER'S HAND: {0} (TOTAL: {1})", string.Join(", ", playerHand), CalculateHand(playerHand));
+			Console.WriteLine("\nDEALER'S HAND: {0}, ?", dealerHand[0]);
+			Console.WriteLine("\n-----------------------------");
 
 			if (PlayerTurn(playerHand) && DealerTurn(dealerHand))
 			{
@@ -40,21 +54,21 @@
 
 		static bool PlayerTurn(List<int> playerHand)
 		{
+
 			while (true)
 			{
-				Console.WriteLine("\nYOUR HAND: {0} (TOTAL: {1})", string.Join(", ", playerHand), CalculateHand(playerHand));
-				Console.WriteLine("DO YOU WANT TO (H)IT OR (S)TAND?");
+				Console.Write("\nDO YOU WANT TO (H)IT OR (S)TAND? ");
 				string choice = Console.ReadLine().ToUpper();
 
 				if (choice == "H")
 				{
 					playerHand.Add(DrawCard());
 					int playerTotal = CalculateHand(playerHand);
-					Console.WriteLine("YOU DREW A CARD. NEW TOTAL: {0}", playerTotal);
+					Console.WriteLine("\nYOU DREW A CARD. NEW TOTAL: {0}", playerTotal);
 
 					if (playerTotal > 21)
 					{
-						Console.WriteLine("YOU BUST!");
+						Console.WriteLine("\nYOU BUST!");
 						dealerScore++;
 						return false;
 					}
@@ -67,7 +81,7 @@
 
 				else
 				{
-					Console.WriteLine("INVALID INPUT. PLEASE ENTER 'H' OR 'S'");
+					Console.Write("\nINVALID INPUT. PLEASE ENTER 'H' OR 'S' ");
 				}
 			}
 
@@ -82,11 +96,10 @@
 			}
 
 			int dealerTotal = CalculateHand(dealerHand);
-			Console.WriteLine("DEALER'S HAND: {0} (TOTAL: {1})", string.Join(", ", dealerHand), dealerTotal);
 
 			if (dealerTotal > 21)
 			{
-				Console.WriteLine("DEALER BUSTS!");
+				Console.WriteLine("\nDEALER BUSTS!");
 				playerScore++;
 				return false;
 			}
@@ -113,25 +126,26 @@
 			int playerTotal = CalculateHand(playerHand);
 			int dealerTotal = CalculateHand(dealerHand);
 
-			Console.WriteLine("\nFINAL HANDS:");
-			Console.WriteLine("PLAYER'S HAND {0} (TOTAL: {1}", string.Join(", ", playerHand), playerTotal);
-			Console.WriteLine("DEALER'S HAND {0} (TOTAL: {1}", string.Join(", ", dealerHand), dealerTotal);
+			Console.WriteLine("\n----------------------------");
+			Console.WriteLine("\nPLAYER'S HAND {0} (TOTAL: {1})", string.Join(", ", playerHand), playerTotal);
+			Console.WriteLine("\nDEALER'S HAND {0} (TOTAL: {1})", string.Join(", ", dealerHand), dealerTotal);
+			Console.WriteLine("\n-----------------------------");
 
 			if (playerTotal > dealerTotal)
 			{
-				Console.WriteLine("YOU WIN THIS ROUND!");
+				Console.WriteLine("\nPLAYER WINS THIS ROUND!");
 				playerScore++;
 			}
 
 			else if (dealerTotal > playerTotal)
 			{
-				Console.WriteLine("DEALER WINS THIS ROUND!");
+				Console.WriteLine("\nDEALER WINS THIS ROUND!");
 				dealerScore++;
 			}
 
 			else
 			{
-				Console.WriteLine("TIE!");
+				Console.WriteLine("\nTIE!");
 			}
 		}
 
