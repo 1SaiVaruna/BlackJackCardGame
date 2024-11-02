@@ -28,9 +28,24 @@
 
 		}
 
+		static int CalculateHand(List<int> hand)
+		{
+			int total = hand.Sum();
+			int aceCount = hand.Count(card => card == 1);
+
+			while (total <= 11 && aceCount > 0)
+			{
+				total += 10;
+				aceCount--;
+			}
+
+			return total;
+		}
 		static int DrawCard()
 		{
 			return random.Next(1, 11);
 		}
+
+
 	}
 }
