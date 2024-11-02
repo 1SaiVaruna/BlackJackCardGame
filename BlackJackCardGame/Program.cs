@@ -84,7 +84,6 @@
 			return true;
 		}
 
-
 		static int CalculateHand(List<int> hand)
 		{
 			int total = hand.Sum();
@@ -98,6 +97,34 @@
 
 			return total;
 		}
+
+		static void WinnerRound(List<int> playerHand, List<int> dealerHand)
+		{
+			int playerTotal = CalculateHand(playerHand);
+			int dealerTotal = CalculateHand(dealerHand);
+
+			Console.WriteLine("\nFINAL HANDS:");
+			Console.WriteLine("PLAYER'S HAND {0} (TOTAL: {1}", string.Join(", ", playerHand), playerTotal);
+			Console.WriteLine("DEALER'S HAND {0} (TOTAL: {1}", string.Join(", ", dealerHand), dealerTotal);
+
+			if (playerTotal > dealerTotal)
+			{
+				Console.WriteLine("YOU WIN THIS ROUND!");
+				playerScore++;
+			}
+
+			else if (dealerTotal > playerTotal)
+			{
+				Console.WriteLine("DEALER WINS THIS ROUND!");
+				dealerScore++;
+			}
+
+			else
+			{
+				Console.WriteLine("TIE!");
+			}
+		}
+
 		static int DrawCard()
 		{
 			return random.Next(1, 11);
