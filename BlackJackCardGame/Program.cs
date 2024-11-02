@@ -2,7 +2,7 @@
 {
 	internal class Program
 	{
-
+		private static Random random = new Random();
 		private static int playerScore = 0;
 		private static int dealerScore = 0;
 
@@ -26,6 +26,11 @@
 		static void PlayRound()
 		{
 
+		}
+
+		static int DrawCard()
+		{
+			return random.Next(1, 11);
 		}
 	}
 }
