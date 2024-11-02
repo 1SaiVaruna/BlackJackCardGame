@@ -28,6 +28,44 @@
 
 		}
 
+		static bool PlayerTurn(List<int> playerHand)
+		{
+			while (true)
+			{
+				Console.WriteLine("\nYOUR HAND: {0} (TOTAL: {1})", string.Join(", ", playerHand), CalculateHand(playerHand));
+				Console.WriteLine("DO YOU WANT TO (H)IT OR (S)TAND?");
+				string choice = Console.ReadLine().ToUpper();
+
+				if (choice == "H")
+				{
+					playerHand.Add(DrawCard());
+					int playerTotal = CalculateHand(playerHand);
+					Console.WriteLine("YOU DREW A CARD. NEW TOTAL: {0}", playerTotal);
+
+					if (playerTotal > 21)
+					{
+						Console.WriteLine("BUST! YOU WENT PAST 21");
+						dealerScore++;
+						return false;
+					}
+				}
+
+				else if (choice == "S")
+				{
+					break;
+				}
+
+				else
+				{
+					Console.WriteLine("INVALID INPUT. PLEASE ENTER 'H' OR 'S'");
+				}
+			}
+
+			return true;
+		}
+
+
+
 		static int CalculateHand(List<int> hand)
 		{
 			int total = hand.Sum();
